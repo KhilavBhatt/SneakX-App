@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.myapplication.database.Database;
 
+import java.util.Objects;
+
 public class RegisterActivity extends AppCompatActivity {
 
     EditText email, password;
@@ -22,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_register);
         init();
         setEvent();
@@ -44,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(e->{
             String email = this.email.getText().toString();
             String password = this.password.getText().toString();
-            if(email.length()==0 || password.length()==0){
+            if(email.isEmpty() || password.isEmpty()){
                 Toast.makeText(this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
             }
             else {

@@ -18,6 +18,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity{
      Database db;
 
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
         db = Database.getInstance(this);
         fetchAndStoreData(() -> {
@@ -43,9 +45,7 @@ public class MainActivity extends AppCompatActivity{
                     parseJsonResponse(response);
                     callback.onFetchDataCompleted();
                 },
-                error -> {
-                    error.printStackTrace();
-                });
+                Throwable::printStackTrace);
         Volley.newRequestQueue(this).add(request);
     }
 

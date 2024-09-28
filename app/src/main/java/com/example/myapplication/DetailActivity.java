@@ -18,18 +18,20 @@ import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.User;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 public class DetailActivity extends AppCompatActivity {
 
-    private ImageView imgv;
+    private ImageView imageView;
     private TextView name, price, qty;
     private ImageButton add, remove, back;
     private Button addToCart;
     Integer quantity = 0;
     Intent intent;
-    Database db;
+    Database database;
 
     void init(){
-        imgv = findViewById(R.id.imgv);
+        imageView = findViewById(R.id.imgv);
         name = findViewById(R.id.name);
         price = findViewById(R.id.price);
         qty = findViewById(R.id.qty);
@@ -38,10 +40,10 @@ public class DetailActivity extends AppCompatActivity {
         remove = findViewById(R.id.remove);
         addToCart = findViewById(R.id.cart);
 
-        db = Database.getInstance(this);
+        database = Database.getInstance(this);
 
         intent = getIntent();
-        Picasso.get().load(intent.getStringExtra("shoeimage")).into(imgv);
+        Picasso.get().load(intent.getStringExtra("shoeimage")).into(imageView);
         name.setText(intent.getStringExtra("shoename"));
         price.setText(intent.getStringExtra("shoeprice"));
         quantity = intent.getIntExtra("quantity", 0);
@@ -66,13 +68,13 @@ public class DetailActivity extends AppCompatActivity {
             if(quantity > 0){
                 User user = SessionManager.getInstance(this).getUser();
                 Integer shoeId = intent.getIntExtra("shoeid", 0);
-                Cart cart = db.getCart(user.getUserId(),shoeId);
+                Cart cart = database.getCart(user.getUserId(),shoeId);
                 if(cart !=null){
-                    db.updateCart(user.getUserId(), shoeId, quantity + cart.getQuantity());
+                    database.updateCart(user.getUserId(), shoeId, quantity + cart.getQuantity());
                 }
                 else{
                     Toast.makeText(this, "Product Success Add To Cart", Toast.LENGTH_SHORT).show();
-                    db.addToCart(user.getUserId(), shoeId, quantity);
+                    database.addToCart(user.getUserId(), shoeId, quantity);
                 }
             }
             else{
@@ -86,7 +88,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_detail);
         init();
         setEvent();
