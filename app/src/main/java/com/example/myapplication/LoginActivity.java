@@ -16,9 +16,9 @@ import com.example.myapplication.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email, password;
-    Button login, register;
-    Database db;
+    EditText eml, passwrd;
+    Button lgin, signUp;
+    Database database;
 
     SessionManager sessionManager;
     @Override
@@ -33,27 +33,27 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void init(){
-        email = findViewById(R.id.txtEmail);
-        password = findViewById(R.id.txtPassword);
-        login = findViewById(R.id.loginBtn);
-        register = findViewById(R.id.registerBtn);
-        db = Database.getInstance(this);
+        eml = findViewById(R.id.txtEmail);
+        passwrd = findViewById(R.id.txtPassword);
+        lgin = findViewById(R.id.loginBtn);
+        signUp = findViewById(R.id.registerBtn);
+        database = Database.getInstance(this);
         sessionManager = SessionManager.getInstance(this);
     }
 
     void setEvent(){
-        register.setOnClickListener(e->{
+        signUp.setOnClickListener(e->{
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         });
-        login.setOnClickListener(e->{
-            String email = this.email.getText().toString();
-            String password = this.password.getText().toString();
+        lgin.setOnClickListener(e->{
+            String email = this.eml.getText().toString();
+            String password = this.passwrd.getText().toString();
             if(email.length()==0 || password.length()==0){
                 Toast.makeText(this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
             }
             else {
-                User user = db.getUser(email, password);
+                User user = database.getUser(email, password);
                 if(user!=null){
                     sessionManager.saveCredential(user);
                     startActivity(new Intent(this, DashboardActivity.class));

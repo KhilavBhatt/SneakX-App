@@ -42,11 +42,9 @@ public class MainActivity extends AppCompatActivity{
                     System.out.println("Calling Parse JSON");
                     parseJsonResponse(response);
                     callback.onFetchDataCompleted();
-                    // Do further processing with the parsed data
                 },
                 error -> {
                     error.printStackTrace();
-                    // Handle error
                 });
         Volley.newRequestQueue(this).add(request);
     }
