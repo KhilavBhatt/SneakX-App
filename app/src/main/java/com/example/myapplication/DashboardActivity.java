@@ -18,9 +18,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
 
-    ShoesFragment shoesFragment = new ShoesFragment();
+    ShoesFragment shoeFragment = new ShoesFragment();
     CartFragment cartFragment = new CartFragment();
-    TransactionFragment transactionFragment= new TransactionFragment();
+    TransactionFragment transFragment= new TransactionFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +30,20 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_dashboard);
         bottomNavigationView = findViewById(R.id.bottomnav);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, shoesFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, shoeFragment).commit();
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
                     case R.id.shoe:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, shoesFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, shoeFragment).commit();
                         return true;
                     case R.id.cart:
                         getSupportFragmentManager().beginTransaction().replace(R.id.container, cartFragment).commit();
                         return true;
                     case R.id.tr:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.container, transactionFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, transFragment).commit();
                         return true;
                 }
                 return false;

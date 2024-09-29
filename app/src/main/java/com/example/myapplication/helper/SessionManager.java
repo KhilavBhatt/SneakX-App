@@ -9,7 +9,7 @@ public class SessionManager {
 
     private static SessionManager instance;
     private Context context;
-    private User user;
+    private User user1;
 
 
     public static SessionManager getInstance(Context context){
@@ -28,14 +28,14 @@ public class SessionManager {
     }
 
     public void saveCredential(User user){
-        this.user = user;
+        this.user1 = user;
     }
 
     public User getUser(){
-        return user;
+        return user1;
     }
     public void setUser(User user){
-        this.user = user;
+        this.user1 = user;
     }
 
 
