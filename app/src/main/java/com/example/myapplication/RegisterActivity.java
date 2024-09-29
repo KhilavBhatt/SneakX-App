@@ -17,7 +17,7 @@ import java.util.Objects;
 public class RegisterActivity extends AppCompatActivity {
 
     EditText email, password;
-    Button login, register;
+    Button login, signUp;
     Database db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.txtEmail);
         password = findViewById(R.id.txtPassword);
         login = findViewById(R.id.loginBtn);
-        register = findViewById(R.id.registerBtn);
+        signUp = findViewById(R.id.registerBtn);
         db = Database.getInstance(this);
     }
 
@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         });
-        register.setOnClickListener(e->{
+        signUp.setOnClickListener(e->{
             String email = this.email.getText().toString();
             String password = this.password.getText().toString();
             if(email.isEmpty() || password.isEmpty()){
