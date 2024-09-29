@@ -12,10 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.DashboardActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.database.Database;
-import com.example.myapplication.helper.SessionManager;
 import com.example.myapplication.interfaces.CartButtonListener;
 import com.example.myapplication.model.Cart;
 import com.example.myapplication.model.Shoe;
@@ -28,7 +26,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private ArrayList<Cart> carts;
     private Context context;
     private CartButtonListener cartButtonListener;
-    Database db;
+    Database database;
 
 
     public CartAdapter(ArrayList<Cart> carts, Context context, CartButtonListener cartButtonListener) {
