@@ -13,64 +13,64 @@ import java.util.ArrayList;
 
 public class CartHelper {
 
-    private DatabaseHelper dbHelper;
-    private SQLiteDatabase db;
+    private final DatabaseHelper dbHelper;
+    private SQLiteDatabase database;
     public CartHelper(Context context) {
         dbHelper = new DatabaseHelper(context);
     }
 
     public void addToCart(Integer userId, Integer shoeId, Integer quantity){
-        db = dbHelper.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("userId", userId);
         values.put("shoeId", shoeId);
         values.put("quantity", quantity);
-        db.insert("carts", null, values);
-        db.close();
+        database.insert("carts", null, values);
+        database.close();
     }
 
     public ArrayList<Cart> getCarts(Integer userId){
-        db = dbHelper.getReadableDatabase();
+        database = dbHelper.getReadableDatabase();
         ArrayList<Cart> carts = new ArrayList<>();
-        Cursor cursor = db.rawQuery("Select * from carts where userId = "+ userId, null);
+        Cursor cursor = database.rawQuery("Select * from carts where userId = "+ userId, null);
         while(cursor.moveToNext()){
             Cart cart = new Cart(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
             carts.add(cart);
         }
         cursor.close();
-        db.close();
+        database.close();
         return carts;
     }
 
     public Cart getCart(Integer userId, Integer shoeId){
-        db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from carts where userId = ? and shoeId = ? ", new String[]{String.valueOf(userId), String.valueOf(shoeId)});
+        database = dbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery("Select * from carts where userId = ? and shoeId = ? ", new String[]{String.valueOf(userId), String.valueOf(shoeId)});
         Cart cart = null;
         if(cursor.moveToFirst()){
             cart = new Cart(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2));
             cursor.close();
-            db.close();
+            database.close();
             return cart;
         }
         cursor.close();
-        db.close();
+        database.close();
         return cart;
     }
 
     public void updateCart(Integer userId, Integer shoeId, Integer quantity) {
-        db = dbHelper.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("quantity", quantity);
         String whereClause = "userId = ? AND shoeId = ?";
         String[] whereArgs = {String.valueOf(userId), String.valueOf(shoeId)};
-        db.update("carts", values, whereClause, whereArgs);
-        db.close();
+        database.update("carts", values, whereClause, whereArgs);
+        database.close();
     }
     public void removeCart(Integer userId, Integer shoeId) {
-        db = dbHelper.getWritableDatabase();
+        database = dbHelper.getWritableDatabase();
         String whereClause = "userId = ? AND shoeId = ?";
         String[] whereArgs = {String.valueOf(userId), String.valueOf(shoeId)};
-        db.delete("carts", whereClause, whereArgs);
-        db.close();
+        database.delete("carts", whereClause, whereArgs);
+        database.close();
     }
 }
