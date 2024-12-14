@@ -5,7 +5,6 @@ Key Features
 Browse & search sneakers
 Add to cart & checkout
 User authentication & order history
-Secure payments integration
 Tech
 Language: Java
 Platform: Android Studio
